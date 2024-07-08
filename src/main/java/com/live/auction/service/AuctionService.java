@@ -18,5 +18,5 @@ public interface AuctionService {
 
     List<Long> getTopAuctioneers(int top);
 
-    Optional<AuctionDto> findByItemId(long id);
+    Optional<AuctionDto> findByItemId(Long id);
 }

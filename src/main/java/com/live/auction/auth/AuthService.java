@@ -20,7 +20,7 @@ public class AuthService {
         return jwtUtil.getRole(token).equals(role);
     }
 
-    public long getUserId(String token) {
+    public Long getUserId(String token) {
         token = token.substring(7);
         return Long.parseLong(jwtUtil.getSubject(token));
     }

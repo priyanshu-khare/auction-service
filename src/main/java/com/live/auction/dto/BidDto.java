@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BidDto {
 
-    @NotNull private long itemId;
+    @NotNull private Long itemId;
 
     @NotNull private BigDecimal price;
 

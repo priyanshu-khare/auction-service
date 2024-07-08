@@ -23,7 +23,7 @@ public class ItemDto {
     @Future
     private Instant endDate;
 
-    private String createdBy;
+    private Long createdBy;
 
     private BigDecimal basePrice;
 }

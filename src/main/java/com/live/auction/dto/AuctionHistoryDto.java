@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuctionHistoryDto {
 
-    private long itemId;
+    private Long itemId;
 
     private BigDecimal basePrice;
 

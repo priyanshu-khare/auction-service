@@ -49,9 +49,10 @@ public class BidServiceImpl implements BidService {
     @Transactional
     public void placeBid(BidDto bidDto, String header) {
         Bid bid = mapper.map(bidDto, Bid.class);
-        long userId = authService.getUserId(header);
+        Long userId = authService.getUserId(header);
         bid.setCreatedBy(userId);
         bid.setCreatedOn(Instant.now());
+        bid.setId(null);
         bidRepository.save(bid);
         Auction auction = Auction.builder()
                 .itemId(bid.getItemId())

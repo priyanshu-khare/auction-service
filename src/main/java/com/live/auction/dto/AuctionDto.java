@@ -1,5 +1,6 @@
 package com.live.auction.dto;
 
+import com.live.auction.common.AuctionStatus;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuctionDto {
 
-    private long itemId;
+    private Long itemId;
 
     private BigDecimal highestPrice;
 
-    private long updatedBy;
+    private Long updatedBy;
 
-    private String status;
+    private AuctionStatus status;
 }

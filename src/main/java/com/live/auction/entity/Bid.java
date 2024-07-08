@@ -20,16 +20,16 @@ public class Bid {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "item_id")
-    private long itemId;
+    private Long itemId;
 
     @Column(name = "price")
     private BigDecimal price;
 
     @Column(name = "created_by")
-    private long createdBy;
+    private Long createdBy;
 
     @CreationTimestamp
     @Column(name = "created_on")

@@ -1,14 +1,16 @@
 package com.live.auction.service.impl;
 
+import static com.live.auction.common.AuctionStatus.NOT_STARTED;
+
 import com.live.auction.common.AuctionStatus;
 import com.live.auction.dto.AuctionDto;
-import com.live.auction.dto.AuctionHistoryDto;
 import com.live.auction.dto.AuctionItemDto;
 import com.live.auction.entity.Auction;
 import com.live.auction.entity.AuctionHistory;
 import com.live.auction.entity.Item;
 import com.live.auction.repository.AuctionHistoryRepository;
 import com.live.auction.repository.AuctionRepository;
+import com.live.auction.repository.ItemRepository;
 import com.live.auction.service.AuctionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
@@ -30,16 +32,20 @@ public class AuctionServiceImpl implements AuctionService {
 
     private final ModelMapper mapper;
 
+    private final ItemRepository itemRepository;
+
     @Autowired
     public AuctionServiceImpl(
             AuctionRepository auctionRepository,
             AuctionHistoryRepository auctionHistoryRepository,
             EntityManager entityManager,
-            ModelMapper mapper) {
+            ModelMapper mapper,
+            ItemRepository itemRepository) {
         this.auctionRepository = auctionRepository;
         this.auctionHistoryRepository = auctionHistoryRepository;
         this.entityManager = entityManager;
         this.mapper = mapper;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -60,10 +66,17 @@ public class AuctionServiceImpl implements AuctionService {
         Optional<Auction> updatedAuction = auctionRepository.findByItemId(auction.getItemId());
         if (updatedAuction.isPresent()) {
             Auction updated = updatedAuction.get();
-            AuctionHistoryDto auctionHistoryDto = mapper.map(updated, AuctionHistoryDto.class);
-            AuctionHistory auctionHistory = mapper.map(auctionHistoryDto, AuctionHistory.class);
-            auctionHistory.setAuctionId(updated.getId());
-            auctionHistory.setCreatedBy(updated.getUpdatedBy());
+            AuctionHistory auctionHistory = AuctionHistory.builder()
+                    .auctionId(updated.getId())
+                    .createdOn(Instant.now())
+                    .status(updated.getStatus())
+                    .highestPrice(updated.getHighestPrice())
+                    .basePrice(updated.getBasePrice())
+                    .endDate(updated.getEndDate())
+                    .startDate(updated.getStartDate())
+                    .itemId(updated.getItemId())
+                    .createdBy(updated.getUpdatedBy())
+                    .build();
             auctionHistoryRepository.save(auctionHistory);
         }
     }
@@ -112,8 +125,15 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Override
-    public Optional<AuctionDto> findByItemId(long id) {
-        Optional<Auction> auction = auctionRepository.findByItemId(id);
-        return auction.map(value -> mapper.map(value, AuctionDto.class));
+    public Optional<AuctionDto> findByItemId(Long id) {
+        return auctionRepository
+                .findByItemId(id)
+                .map(auction -> mapper.map(auction, AuctionDto.class))
+                .or(() -> itemRepository.findById(id).map(item -> AuctionDto.builder()
+                        .itemId(item.getId())
+                        .status(NOT_STARTED)
+                        .highestPrice(item.getBasePrice())
+                        .updatedBy(item.getCreatedBy())
+                        .build()));
     }
 }

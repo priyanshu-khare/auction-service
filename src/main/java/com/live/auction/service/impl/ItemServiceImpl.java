@@ -27,7 +27,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void saveItem(ItemDto itemDto, String header) {
-        long userId = authService.getUserId(header);
+        Long userId = authService.getUserId(header);
         Item item = modelMapper.map(itemDto, Item.class);
         item.setCreatedBy(userId);
         itemRepository.save(item);

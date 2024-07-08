@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuctionItemDto {
 
-    private long itemId;
+    private Long itemId;
 
     private Instant startDate;
 

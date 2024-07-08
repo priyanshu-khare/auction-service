@@ -15,6 +15,6 @@ Functionalities:
     6. If User is ADMIN:
         a. Admin can list all the auctions
         b. Admin can list top Participants based on number of bids submitted
-        c. Admin can list top Auctioneer based on number of auction/items added.
+        c. Admin can list top Auctioneer based on number of auction/items added
 
 Swagger:  http://localhost:8080/swagger-ui/index.html

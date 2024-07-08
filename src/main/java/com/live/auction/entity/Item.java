@@ -21,7 +21,7 @@ public class Item {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -36,7 +36,7 @@ public class Item {
     private BigDecimal basePrice;
 
     @Column(name = "created_by")
-    private long createdBy;
+    private Long createdBy;
 
     @CreationTimestamp
     @Column(name = "created_on")

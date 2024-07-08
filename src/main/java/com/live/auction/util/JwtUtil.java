@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long JWT_EXPIRATION_TIME = 86400000; // 24 hours in milliseconds
+    private static final Long JWT_EXPIRATION_TIME = 86400000L; // 24 hours in milliseconds
 
     public String generateToken(String userId, String role) {
         return Jwts.builder()

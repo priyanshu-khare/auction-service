@@ -1,7 +1,6 @@
 package com.live.auction.cron;
 
 import com.live.auction.common.AuctionStatus;
-import com.live.auction.dto.AuctionHistoryDto;
 import com.live.auction.entity.Auction;
 import com.live.auction.entity.AuctionHistory;
 import com.live.auction.entity.Item;
@@ -93,11 +92,16 @@ public class AuctionCronService {
     }
 
     private AuctionHistory buildAuctionHistory(Auction auction) {
-        AuctionHistoryDto auctionHistoryDto = mapper.map(auction, AuctionHistoryDto.class);
-        AuctionHistory auctionHistory = mapper.map(auctionHistoryDto, AuctionHistory.class);
-        auctionHistory.setAuctionId(auction.getId());
-        auctionHistory.setCreatedBy(0L);
-        auctionHistory.setCreatedOn(Instant.now());
-        return auctionHistory;
+        return AuctionHistory.builder()
+                .auctionId(auction.getId())
+                .createdOn(Instant.now())
+                .status(auction.getStatus())
+                .highestPrice(auction.getHighestPrice())
+                .basePrice(auction.getBasePrice())
+                .endDate(auction.getEndDate())
+                .startDate(auction.getStartDate())
+                .itemId(auction.getItemId())
+                .createdBy(0L)
+                .build();
     }
 }

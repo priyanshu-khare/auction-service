@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
     public void register(UserDto userDto) {
         User user = mapper.map(userDto, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setId(null);
         userRepository.save(user);
     }
 }

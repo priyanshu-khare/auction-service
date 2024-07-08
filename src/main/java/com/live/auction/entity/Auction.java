@@ -20,10 +20,10 @@ public class Auction {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "item_id")
-    private long itemId;
+    private Long itemId;
 
     @Column(name = "base_price")
     private BigDecimal basePrice;
@@ -38,7 +38,7 @@ public class Auction {
     private BigDecimal highestPrice;
 
     @Column(name = "updated_by")
-    private long updatedBy;
+    private Long updatedBy;
 
     @Column(name = "status")
     private String status;

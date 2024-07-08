@@ -71,7 +71,7 @@ public class AuctionController {
     @GetMapping
     @Operation(summary = "Get Auction", description = "Retrieve auction by Item Id, action restricted to - AUCTIONEER")
     public ResponseEntity<Optional<AuctionDto>> findByItemId(
-            @RequestHeader("Authorization") String header, @RequestParam long itemId) {
+            @RequestHeader("Authorization") String header, @RequestParam Long itemId) {
         if (!authService.validateRole(header, UserType.AUCTIONEER.name())) {
             return ResponseEntity.status(401).build();
         }

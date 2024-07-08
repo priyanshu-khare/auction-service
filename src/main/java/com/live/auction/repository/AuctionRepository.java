@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    Optional<Auction> findByItemId(long itemId);
+    Optional<Auction> findByItemId(Long itemId);
 
     List<Auction> findByEndDateBeforeAndStatus(Instant endDate, String status);
 

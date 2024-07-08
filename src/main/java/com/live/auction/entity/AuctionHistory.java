@@ -20,13 +20,13 @@ public class AuctionHistory {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "auction_id")
-    private long auctionId;
+    private Long auctionId;
 
     @Column(name = "item_id")
-    private long itemId;
+    private Long itemId;
 
     @Column(name = "highest_price")
     private BigDecimal highestPrice;
@@ -35,7 +35,7 @@ public class AuctionHistory {
     private BigDecimal basePrice;
 
     @Column(name = "created_by")
-    private long createdBy;
+    private Long createdBy;
 
     @Column(name = "status")
     private String status;
